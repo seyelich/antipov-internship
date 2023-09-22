@@ -1,0 +1,12 @@
+.button {
+  background-color: var(--violet);
+  border-radius: var(--radius-8);
+  padding: 13px;
+  color: var(--white);
+  font-size: var(--p-font-size);
+  line-height: var(--p-line-height);
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  height: min-content;
+}
