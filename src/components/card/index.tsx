@@ -2,14 +2,15 @@ import { useState } from "react";
 import styles from "./index.module.css";
 import { Link } from "react-router-dom";
 import { MouseEvent } from "react";
+import { TUser } from "../../types";
 
-type TCard = {
-  id: string;
-  pic: string;
-  name: string;
-}
+// type TCard = {
+//   id: string;
+//   avatar: string;
+//   name: string;
+// }
 
-export const Card = ({ el }: {el: TCard}) => {
+export const Card = ({ el }: {el: TUser}) => {
   const [like, setLike] = useState(false);
 
   const handleClick = (e: MouseEvent) => {
@@ -20,7 +21,7 @@ export const Card = ({ el }: {el: TCard}) => {
   return (
     <li>
       <Link to={{pathname: `/${el.id}`}} className={styles.element}>
-        <img src={el.pic} alt={el.name} />
+        <img src={el.avatar} alt={el.name} className={styles.ava} />
         <p className={styles.name}>{el.name}</p>
         <button className={styles.btn} onClick={e => handleClick(e)}>
           {

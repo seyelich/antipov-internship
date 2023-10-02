@@ -25,3 +25,8 @@
   font-size: var(--h2-font-size);
   line-height: var(--h2-line-height);
 }
+
+.ava {
+  width: 124px;
+  border-radius: 100px;
+}
