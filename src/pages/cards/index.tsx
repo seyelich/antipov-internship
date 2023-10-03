@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import { Card } from "../../components/card";
 import { CardsHeader } from "../../components/cards-header";
 import styles from "./index.module.css";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../services/types";
+import { useAppDispatch, useAppSelector } from "../../services/types";
 import { getUsersInfo } from "../../services/actions/users";
 
 export const CardsPage = () => {
-  const { users, pageLimit } = useSelector((store: RootState) => store.users);
+  const { users, pageLimit } = useAppSelector(store => store.users);
   const [ page, setPage ] = useState(1);
   const dispatch = useAppDispatch();
 

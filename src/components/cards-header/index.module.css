@@ -15,6 +15,7 @@
   border: 1px solid var(--grey-light);
   width: 81px;
   grid-column: 3 / 4;
+  cursor: pointer;
 }
 
 .btn_type_mob {
@@ -26,6 +27,7 @@
   padding: 0;
   grid-column: 2 / 3;
   display: none;
+  cursor: pointer;
 }
 
 .btn_type_back {

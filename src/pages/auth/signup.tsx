@@ -3,8 +3,16 @@ import useForm from "../../hooks/useForm";
 import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import styles from "./index.module.css";
+import { useAppDispatch, useAppSelector } from "../../services/types";
+import { register } from "../../services/actions/auth";
+import { Navigate } from "react-router";
+import { getCookie } from "../../utils/utils";
 
 export const SignUpPage = () => {
+  const token = getCookie('token');
+  const dispatch = useAppDispatch();
+  const { userId } = useAppSelector(store => store.auth);
+
   const { values, setValues, handleChange } = useForm({
     name: "",
     email: "",
@@ -14,13 +22,22 @@ export const SignUpPage = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
     setValues({
       name: "",
       email: "",
       pw: "",
       pwCheck: "",
     });
-    console.log('Form has been sent')
+
+    dispatch(register({
+      email: values.email,
+      pw: values.pw,
+    }))
+  }
+
+  if (token || userId) {
+    return (<Navigate to="/" />)
   }
 
   return (

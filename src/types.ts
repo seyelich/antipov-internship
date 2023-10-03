@@ -5,7 +5,6 @@ export type TResponse<T> = {
 export type TSetCookieProps = {[props: string]: string | boolean | number | Date | null}; //костыль
 
 export type TUserForm = {
-  name: string;
   email: string;
   pw: string;
 }

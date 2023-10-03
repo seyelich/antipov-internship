@@ -1,18 +1,8 @@
 import { TUser } from "../../types";
 
 export interface IAuthRes {
-  user: TUser;
-  accessToken?: string;
-  refreshToken?: string;
-}
-
-export interface IPwRequestRes   {
-  message: string;
-}
-
-export interface IGetTokenRes {
-  accessToken: string;
-  refreshToken: string;
+  id: number;
+  token?: string;
 }
 
 export interface IUsersRes {

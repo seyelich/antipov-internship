@@ -5,7 +5,7 @@ type TButton = {
   type: HTMLButtonElement['type'];
   isDisabled?: boolean;
   extraClass?: string;
-  onClick?: () => {};
+  onClick?: () => void;
 }
 
 export const Button = ({
