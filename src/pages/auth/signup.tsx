@@ -7,11 +7,12 @@ import { useAppDispatch, useAppSelector } from "../../services/types";
 import { register } from "../../services/actions/auth";
 import { Navigate } from "react-router";
 import { getCookie } from "../../utils/utils";
+import Loader from "../../components/loader";
 
 export const SignUpPage = () => {
   const token = getCookie('token');
   const dispatch = useAppDispatch();
-  const { userId } = useAppSelector(store => store.auth);
+  const { userId, loading } = useAppSelector(store => store.auth);
 
   const { values, setValues, handleChange } = useForm({
     name: "",
@@ -42,52 +43,56 @@ export const SignUpPage = () => {
 
   return (
     <main className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.inputContainer}>
-          <h1 className={styles.title}>
-            Регистрация
-          </h1>
-          <Input
-            placeholder="Артур"
-            name="name"
-            value={values.name}
-            label="Имя"
-            onChange={handleChange}
-            isCorrect={true}
+      {
+        loading ?
+        <Loader /> :
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.inputContainer}>
+            <h1 className={styles.title}>
+              Регистрация
+            </h1>
+            <Input
+              placeholder="Артур"
+              name="name"
+              value={values.name}
+              label="Имя"
+              onChange={handleChange}
+              isCorrect={true}
+            />
+            <Input
+              placeholder="example@mail.ru"
+              name="email"
+              value={values.email}
+              label="Электронная почта"
+              onChange={handleChange}
+              isCorrect={true}
+            />
+            <Input
+              placeholder="******"
+              name="pw"
+              value={values.pw}
+              label="Пароль"
+              onChange={handleChange}
+              isCorrect={true}
+              type="password"
+            />
+            <Input
+              placeholder="******"
+              name="pwCheck"
+              value={values.pwCheck}
+              label="Подтвердите пароль"
+              onChange={handleChange}
+              isCorrect={true}
+              type="password"
+            />
+          </div>
+          <Button
+            text='Зарегистрироваться'
+            type='submit'
+            isDisabled={false}
           />
-          <Input
-            placeholder="example@mail.ru"
-            name="email"
-            value={values.email}
-            label="Электронная почта"
-            onChange={handleChange}
-            isCorrect={true}
-          />
-          <Input
-            placeholder="******"
-            name="pw"
-            value={values.pw}
-            label="Пароль"
-            onChange={handleChange}
-            isCorrect={true}
-            type="password"
-          />
-          <Input
-            placeholder="******"
-            name="pwCheck"
-            value={values.pwCheck}
-            label="Подтвердите пароль"
-            onChange={handleChange}
-            isCorrect={true}
-            type="password"
-          />
-        </div>
-        <Button
-          text='Зарегистрироваться'
-          type='submit'
-          isDisabled={false}
-        />
-      </form>
+        </form>
+      }
     </main>
   )
 }

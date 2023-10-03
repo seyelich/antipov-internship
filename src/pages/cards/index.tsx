@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card } from "../../components/card";
 import { CardsHeader } from "../../components/cards-header";
 import styles from "./index.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/types";
 import { getUsersInfo } from "../../services/actions/users";
+import Loader from "../../components/loader";
 
 export const CardsPage = () => {
-  const { users, pageLimit } = useAppSelector(store => store.users);
+  const { users, pageLimit, loading } = useAppSelector(store => store.users);
   const [ page, setPage ] = useState(1);
   const dispatch = useAppDispatch();
+  const mountRef = useRef(false);
 
   useEffect(() => {
+    if (mountRef.current && page === 1) return;
+    mountRef.current = true;
     dispatch(getUsersInfo(page));
-  }, [dispatch, page])
+  }, [page, dispatch])
 
 
   const handleClick = () => {
@@ -27,9 +31,13 @@ export const CardsPage = () => {
           <p className={styles.par}>Это опытные специалисты, хорошо разбирающиеся во всех задачах, которые ложатся на их плечи, и умеющие находить выход из любых, даже самых сложных ситуаций.</p>
         </div>
       </CardsHeader>
-      <ul className={styles.list}>
-        {users.map((el, i) => <Card el={el} key={i} />)}
-      </ul>
+      {
+        loading ?
+        <Loader /> :
+        <ul className={styles.list}>
+          {users.map((el, i) => <Card el={el} key={i} />)}
+        </ul>
+      }
       {
         page < pageLimit &&
         <button className={styles.btn} onClick={handleClick}>
